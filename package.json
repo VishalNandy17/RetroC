@@ -3,7 +3,7 @@
   "displayName": "RetroC",
   "description": "Solidity contract generator with production-ready templates and tests.",
   "version": "1.0.0",
-  "publisher": "yourusername",
+  "publisher": "VishalNandy17",
   "engines": {
     "vscode": "^1.60.0"
   },
@@ -84,6 +84,12 @@
     "test": "node ./out/test/runTests.js",
     "pretest": "tsc -p . && node ./scripts/copy-tests.js"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com" },
+  "repository": { "type": "git", "url": "git+https://github.com/VishalNandy17/RetroC.git" },
+  "bugs": { "url": "https://github.com/VishalNandy17/RetroC/issues" },
+  "homepage": "https://github.com/VishalNandy17/RetroC#readme",
+  "publishConfig": { "registry": "https://npm.pkg.github.com" },
+  "packageManager": "npm@10",
   "devDependencies": {
     "@types/node": "^20.11.30",
     "@types/vscode": "^1.60.0",
