@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: {{LICENSE}}
-pragma solidity ^{{SOLIDITY_VERSION}};
+pragma solidity {{SOLIDITY_VERSION}};
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+/* IF INCLUDE_PAUSABLE */
+import "@openzeppelin/contracts/utils/Pausable.sol";
+/* ENDIF */
 
-contract {{VESTING_NAME}} is Ownable {
+contract {{VESTING_NAME}} is Ownable/* IF INCLUDE_PAUSABLE */, Pausable/* ENDIF */ {
     struct Schedule { uint256 total; uint256 released; uint64 start; uint64 cliff; uint64 duration; }
     IERC20 public immutable token;
     mapping(address => Schedule) public schedules;
@@ -24,11 +27,15 @@ contract {{VESTING_NAME}} is Ownable {
         return (s.total * elapsed) / s.duration - s.released;
     }
 
-    function release(address beneficiary) external {
+    function release(address beneficiary) external /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ {
         uint256 amount = releasable(beneficiary);
         schedules[beneficiary].released += amount;
         token.transfer(beneficiary, amount);
     }
+    /* IF INCLUDE_PAUSABLE */
+    function pause() public onlyOwner { _pause(); }
+    function unpause() public onlyOwner { _unpause(); }
+    /* ENDIF */
 }
 
 

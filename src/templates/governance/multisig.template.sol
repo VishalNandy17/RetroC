@@ -45,7 +45,7 @@ contract {{WALLET_NAME}}Wallet {
         emit Deposit(msg.sender, msg.value, address(this).balance);
     }
 
-    function submit(address to, uint value, bytes memory data) external onlyOwner {
+    function submit(address to, uint value, bytes memory data) external onlyOwner /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ {
         transactions.push(Transaction({to: to, value: value, data: data, executed: false, numConfirmations: 0}));
         emit Submit(transactions.length - 1);
     }
@@ -64,7 +64,7 @@ contract {{WALLET_NAME}}Wallet {
         emit Revoke(msg.sender, txId);
     }
 
-    function execute(uint txId) external onlyOwner {
+    function execute(uint txId) external onlyOwner /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ {
         Transaction storage transaction = transactions[txId];
         require(!transaction.executed, "already executed");
         require(transaction.numConfirmations >= required, "insufficient confirmations");

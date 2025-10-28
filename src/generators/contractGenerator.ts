@@ -2,6 +2,9 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import { writeTextFile } from '../utils/fileWriter';
 import { replacePlaceholders } from '../utils/placeholderReplacer';
+import { getDefaultSettings } from '../config/settings';
+import { generateBasicHardhatTest } from './testGenerator';
+import { generateDeploymentScript } from './deploymentGenerator';
 
 async function readTemplate(relativePath: string): Promise<string> {
   const ext = vscode.extensions.getExtension('VishalNandy17.retroc');
@@ -17,10 +20,31 @@ export async function generateContract(
   outputFileName: string,
   placeholders: Record<string, string>,
 ) {
+  const settings = getDefaultSettings();
   const tpl = await readTemplate(templateId);
-  const contents = replacePlaceholders(tpl, placeholders);
+  const withConfig = {
+    ...placeholders,
+    LICENSE: placeholders.LICENSE ?? settings.defaultLicense,
+    SOLIDITY_VERSION: settings.allowVersionOverride
+      ? (placeholders.SOLIDITY_VERSION ?? settings.defaultSolidityVersion)
+      : '^0.8.24',
+    INCLUDE_PAUSABLE: settings.includePausable ? 'true' : 'false',
+    INCLUDE_ACCESS_CONTROL: settings.includeAccessControl ? 'true' : 'false',
+    INCLUDE_NATSPEC: settings.includeNatSpec ? 'true' : 'false',
+  };
+  const contents = replacePlaceholders(tpl, withConfig);
   await writeTextFile(outputFileName, contents, 'contracts');
   vscode.window.showInformationMessage(`RetroC: Created contract ${outputFileName}`);
+
+  // Auto hooks
+  if (settings.autoGenerateTests) {
+    const baseName = outputFileName.replace(/\.sol$/i, '');
+    await generateBasicHardhatTest(baseName, settings.useTypeScript);
+  }
+  if (settings.deploymentScripts) {
+    const baseName = outputFileName.replace(/\.sol$/i, '');
+    await generateDeploymentScript(baseName);
+  }
 }
 
 

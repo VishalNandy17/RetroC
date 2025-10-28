@@ -14,6 +14,11 @@ export async function generateTests() {
 }
 
 export async function generateAllTests() {
+  const ws = vscode.workspace.workspaceFolders?.[0];
+  if (!ws) {
+    vscode.window.showWarningMessage('Open a workspace to generate tests');
+    return;
+  }
   await writeTextFile(`example.test.ts`, `describe('example', ()=>{});\n`, 'test');
   vscode.window.showInformationMessage('RetroC: Generated baseline tests');
 }

@@ -328,7 +328,7 @@ Your contract is ready at `contracts/MyAwesomeToken.sol`
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -601,6 +601,7 @@ contract {{TOKEN_NAME}} is ERC20, ERC20Burnable, ERC20Pausable, AccessControl, E
 | `RetroC: Generate Vesting Template` | Create a vesting contract | `Ctrl+Alt+R V` |
 | `RetroC: Generate Test File` | Generate test scaffold for current contract | `Ctrl+Alt+R T` |
 | `RetroC: Generate All Tests` | Generate tests for all contracts | `Ctrl+Alt+R A` |
+| `RetroC: Generate Deployment Script` | Create a Hardhat deploy script | `Ctrl+Alt+R P` |
 | `RetroC: Open Settings` | Open RetroC configuration | `Ctrl+Alt+R C` |
 
 <br/>
@@ -628,9 +629,10 @@ contract {{TOKEN_NAME}} is ERC20, ERC20Burnable, ERC20Pausable, AccessControl, E
 ```jsonc
 {
   // 🔧 Core Settings
-  "retroc.defaultSolidityVersion": "0.8.20",        // Solidity compiler version
+  "retroc.defaultSolidityVersion": "^0.8.24",       // Solidity compiler version
   "retroc.defaultLicense": "MIT",                   // SPDX license identifier
-  "retroc.openZeppelinVersion": "5.0.0",           // OpenZeppelin contracts version
+  "retroc.openZeppelinVersion": "5.0.1",           // OpenZeppelin contracts version
+  "retroc.allowVersionOverride": false,              // When false, lock to ^0.8.24 & OZ 5.0.1
   
   // 🧪 Testing Configuration
   "retroc.autoGenerateTests": true,                 // Auto-generate test files
@@ -710,7 +712,7 @@ contract {{TOKEN_NAME}} is ERC20, ERC20Burnable, ERC20Pausable, AccessControl, E
 
 ### 🎯 Test Generation
 
-RetroC automatically generates comprehensive test suites:
+RetroC can automatically generate test suites and a deployment script after each contract is created (enable with `retroc.autoGenerateTests` and `retroc.deploymentScripts`):
 
 ```mermaid
 graph TB

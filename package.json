@@ -34,6 +34,7 @@
       { "command": "retroc.generateVesting", "title": "RetroC: Generate Vesting Template", "category": "RetroC" },
       { "command": "retroc.generateTests", "title": "RetroC: Generate Test File", "category": "RetroC" },
       { "command": "retroc.generateAllTests", "title": "RetroC: Generate All Tests", "category": "RetroC" },
+      { "command": "retroc.generateDeployment", "title": "RetroC: Generate Deployment Script", "category": "RetroC" },
       { "command": "retroc.openSettings", "title": "RetroC: Open Settings", "category": "RetroC" }
     ],
     "keybindings": [
@@ -46,14 +47,16 @@
       { "command": "retroc.generateVesting", "key": "ctrl+alt+r v", "mac": "cmd+alt+r v", "when": "editorTextFocus" },
       { "command": "retroc.generateTests", "key": "ctrl+alt+r t", "mac": "cmd+alt+r t", "when": "editorTextFocus" },
       { "command": "retroc.generateAllTests", "key": "ctrl+alt+r a", "mac": "cmd+alt+r a", "when": "editorTextFocus" },
+      { "command": "retroc.generateDeployment", "key": "ctrl+alt+r p", "mac": "cmd+alt+r p", "when": "editorTextFocus" },
       { "command": "retroc.openSettings", "key": "ctrl+alt+r c", "mac": "cmd+alt+r c", "when": "editorTextFocus" }
     ],
     "configuration": {
       "title": "RetroC",
       "properties": {
-        "retroc.defaultSolidityVersion": { "type": "string", "default": "0.8.20", "description": "Solidity compiler version" },
+        "retroc.defaultSolidityVersion": { "type": "string", "default": "^0.8.24", "description": "Solidity compiler version (used when override enabled)" },
         "retroc.defaultLicense": { "type": "string", "default": "MIT", "description": "SPDX license identifier" },
-        "retroc.openZeppelinVersion": { "type": "string", "default": "5.0.0", "description": "OpenZeppelin contracts version" },
+        "retroc.openZeppelinVersion": { "type": "string", "default": "5.0.1", "description": "OpenZeppelin contracts version (used when override enabled)" },
+        "retroc.allowVersionOverride": { "type": "boolean", "default": false, "description": "Allow overriding locked Solidity/OpenZeppelin versions using settings" },
         "retroc.autoGenerateTests": { "type": "boolean", "default": true, "description": "Auto-generate tests with contracts" },
         "retroc.testFramework": { "type": "string", "enum": ["hardhat", "foundry"], "default": "hardhat", "description": "Testing framework" },
         "retroc.useTypeScript": { "type": "boolean", "default": true, "description": "Use TypeScript for tests" },

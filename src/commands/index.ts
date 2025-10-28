@@ -7,6 +7,7 @@ import { generateMultisig } from './generateMultisig';
 import { generateStaking } from './generateStaking';
 import { generateVesting } from './generateVesting';
 import { generateTests, generateAllTests } from './generateTests';
+import { generateDeployment } from './generateDeployment';
 
 export function registerCommands(context: vscode.ExtensionContext) {
   const disposables: vscode.Disposable[] = [
@@ -19,6 +20,7 @@ export function registerCommands(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('retroc.generateVesting', generateVesting),
     vscode.commands.registerCommand('retroc.generateTests', generateTests),
     vscode.commands.registerCommand('retroc.generateAllTests', generateAllTests),
+    vscode.commands.registerCommand('retroc.generateDeployment', generateDeployment),
     vscode.commands.registerCommand('retroc.openSettings', () =>
       vscode.commands.executeCommand('workbench.action.openSettings', '@ext:retroc'),
     ),

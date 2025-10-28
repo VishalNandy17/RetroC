@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: {{LICENSE}}
-pragma solidity ^{{SOLIDITY_VERSION}};
+pragma solidity {{SOLIDITY_VERSION}};
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+/* IF INCLUDE_PAUSABLE */
+import "@openzeppelin/contracts/utils/Pausable.sol";
+/* ENDIF */
 
-contract ERC1155_{{BASE_URI}} is ERC1155, Ownable {
+contract ERC1155_{{BASE_URI}} is ERC1155, Ownable/* IF INCLUDE_PAUSABLE */, Pausable/* ENDIF */ {
     constructor() ERC1155("") {}
 
     function setURI(string memory newuri) public onlyOwner {

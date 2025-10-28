@@ -4,6 +4,7 @@ export interface RetroCSettings {
   defaultSolidityVersion: string;
   defaultLicense: string;
   openZeppelinVersion: string;
+  allowVersionOverride: boolean;
   autoGenerateTests: boolean;
   testFramework: 'hardhat' | 'foundry';
   useTypeScript: boolean;
@@ -26,9 +27,10 @@ export interface RetroCSettings {
 export function getDefaultSettings(): RetroCSettings {
   const cfg = vscode.workspace.getConfiguration('retroc');
   return {
-    defaultSolidityVersion: cfg.get('defaultSolidityVersion', '0.8.20'),
+    defaultSolidityVersion: cfg.get('defaultSolidityVersion', '^0.8.24'),
     defaultLicense: cfg.get('defaultLicense', 'MIT'),
-    openZeppelinVersion: cfg.get('openZeppelinVersion', '5.0.0'),
+    openZeppelinVersion: cfg.get('openZeppelinVersion', '5.0.1'),
+    allowVersionOverride: cfg.get('allowVersionOverride', false),
     autoGenerateTests: cfg.get('autoGenerateTests', true),
     testFramework: cfg.get('testFramework', 'hardhat'),
     useTypeScript: cfg.get('useTypeScript', true),

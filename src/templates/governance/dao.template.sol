@@ -1,15 +1,21 @@
 // SPDX-License-Identifier: {{LICENSE}}
-pragma solidity ^{{SOLIDITY_VERSION}};
+pragma solidity {{SOLIDITY_VERSION}};
 
 import "@openzeppelin/contracts/governance/Governor.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
+import "@openzeppelin/contracts/governance/utils/IVotes.sol";
 
+/// @title {{DAO_NAME}}DAO
+/// @notice Simple on-chain governance using OpenZeppelin's Governor
+/* IF INCLUDE_NATSPEC */
+/// @dev Quorum is set to 4% by default; adjust according to your tokenomics
+/* ENDIF */
 contract {{DAO_NAME}}DAO is Governor, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
-    constructor(IVotes _token)
+    constructor(IVotes token)
         Governor("{{DAO_NAME}}DAO")
-        GovernorVotes(_token)
+        GovernorVotes(token)
         GovernorVotesQuorumFraction(4)
     {}
 
