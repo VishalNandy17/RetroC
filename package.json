@@ -1,7 +1,7 @@
 {
-  "name": "retroc-solidity-generator",
-  "displayName": "RetroC - Solidity Generator",
-  "description": "Solidity contract generator with production-ready templates and tests.",
+  "name": "retroc-solidity-templates",
+  "displayName": "RetroC Solidity Templates",
+  "description": "Generate Solidity smart contract templates with ERC20, ERC721, ERC1155, DAO, Staking, Vesting contracts.",
   "version": "1.0.2",
   "publisher": "VishalNandy17",
   "engines": {
