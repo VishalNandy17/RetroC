@@ -2,7 +2,7 @@
   "name": "retroc-solidity-templates",
   "displayName": "RetroC Solidity Templates",
   "description": "Generate Solidity smart contract templates with ERC20, ERC721, ERC1155, DAO, Staking, Vesting contracts.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "VishalNandy17",
   "engines": {
     "vscode": "^1.60.0"
