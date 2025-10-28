@@ -1,8 +1,8 @@
 {
-  "name": "retroc",
-  "displayName": "RetroC",
+  "name": "retroc-solidity-generator",
+  "displayName": "RetroC - Solidity Generator",
   "description": "Solidity contract generator with production-ready templates and tests.",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "publisher": "VishalNandy17",
   "engines": {
     "vscode": "^1.60.0"
