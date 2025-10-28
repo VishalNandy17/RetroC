@@ -4,7 +4,7 @@ import { writeTextFile } from '../utils/fileWriter';
 import { replacePlaceholders } from '../utils/placeholderReplacer';
 
 async function readTemplate(relativePath: string): Promise<string> {
-  const ext = vscode.extensions.getExtension('yourusername.retroc');
+  const ext = vscode.extensions.getExtension('VishalNandy17.retroc');
   const base = ext?.extensionPath ?? vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
   if (!base) throw new Error('Cannot resolve template base path');
   const templatePath = path.join(base, 'src', 'templates', `${relativePath}.template.sol`);

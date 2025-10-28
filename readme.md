@@ -8,19 +8,20 @@
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=32&duration=2800&pause=2000&color=6366F1&center=true&vCenter=true&width=600&lines=Lightning-Fast+Templates;Smart+Contract+Generation;Production-Ready+Code;Web3+Development+Tool" alt="Typing SVG" />
 
-[![Version](https://img.shields.io/badge/version-1.0.0-6366f1.svg?style=for-the-badge)](https://github.com/yourusername/retroc/releases)
+[![Version](https://img.shields.io/badge/version-1.0.0-6366f1.svg?style=for-the-badge)](https://github.com/VishalNandy17/RetroC/releases)
 [![License](https://img.shields.io/badge/license-MIT-10b981.svg?style=for-the-badge)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.60+-8b5cf6.svg?style=for-the-badge&logo=visual-studio-code)](https://code.visualstudio.com/)
 [![Solidity](https://img.shields.io/badge/Solidity-0.8+-f97316.svg?style=for-the-badge&logo=solidity)](https://soliditylang.org/)
-[![Stars](https://img.shields.io/github/stars/VishalNandy17/retroc?style=for-the-badge&logo=github&color=fbbf24)](https://github.com/VishalNandy17/retroc/stargazers)
+[![Stars](https://img.shields.io/github/stars/VishalNandy17/RetroC?style=for-the-badge&logo=github&color=fbbf24)](https://github.com/VishalNandy17/RetroC/stargazers)
 
 <p align="center">
   <img src="src/logo/logo.png" alt="RetroC Logo" width="200px"/>
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/VishalNandy17/retroc/main/assets/demo.gif" alt="RetroC Demo" width="800px"/>
-</p>
+<!-- Add a demo GIF under /assets/demo.gif in the repo to display below -->
+<!-- <p align="center">
+  <img src="assets/demo.gif" alt="RetroC Demo" width="800px"/>
+</p> -->
 
 **[Installation](#-installation) • [Quick Start](#-quick-start) • [Templates](#-available-templates) • [Documentation](#-documentation) • [Contributing](#-contributing)**
 
@@ -235,7 +236,7 @@ graph LR
 
 ```bash
 # Download the latest release
-wget https://github.com/yourusername/retroc/releases/latest/download/retroc-1.0.0.vsix
+wget https://github.com/VishalNandy17/retroc/releases/latest/download/retroc-1.0.0.vsix
 
 # Install via command line
 code --install-extension retroc-1.0.0.vsix
@@ -247,7 +248,7 @@ code --install-extension retroc-1.0.0.vsix
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/retroc.git && cd retroc
+git clone https://github.com/VishalNandy17/retroc.git && cd retroc
 
 # Install dependencies
 npm install
@@ -887,7 +888,7 @@ retroc/
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/yourusername/retroc.git
+git clone https://github.com/VishalNandy17/retroc.git
 cd retroc
 
 # 2️⃣ Install dependencies
@@ -1038,7 +1039,7 @@ describe('My Template Generation', () => {
 
 ### *Join Our Community of Builders*
 
-<img src="https://contrib.rocks/image?repo=yourusername/retroc" alt="Contributors" />
+<img src="https://contrib.rocks/image?repo=VishalNandy17/retroc" alt="Contributors" />
 
 </div>
 
@@ -1058,7 +1059,7 @@ We love contributions! Here's how you can help make RetroC even better:
 
 Found a bug? Let us know!
 
-[Create an Issue →](https://github.com/yourusername/retroc/issues/new?template=bug_report.md)
+[Create an Issue →](https://github.com/VishalNandy17/RetroC/issues/new?template=bug_report.md)
 
 </td>
 <td align="center" width="33%">
@@ -1067,7 +1068,7 @@ Found a bug? Let us know!
 
 Have a great idea?
 
-[Request Feature →](https://github.com/yourusername/retroc/issues/new?template=feature_request.md)
+[Request Feature →](https://github.com/VishalNandy17/RetroC/issues/new?template=feature_request.md)
 
 </td>
 <td align="center" width="33%">
@@ -1076,7 +1077,7 @@ Have a great idea?
 
 Help others learn!
 
-[Edit Documentation →](https://github.com/yourusername/retroc/edit/main/README.md)
+[Edit Documentation →](https://github.com/VishalNandy17/RetroC/edit/main/README.md)
 
 </td>
 </tr>
@@ -1096,7 +1097,6 @@ Fix bugs or add features!
 
 Share your templates!
 
-[Template Guidelines →](TEMPLATES.md)
 
 </td>
 <td align="center">
@@ -1105,7 +1105,7 @@ Share your templates!
 
 Chat with the community!
 
-[GitHub Discussions →](https://github.com/yourusername/retroc/discussions)
+[GitHub Discussions →](https://github.com/VishalNandy17/RetroC/discussions)
 
 </td>
 </tr>
@@ -1141,7 +1141,7 @@ git clone https://github.com/YOUR_USERNAME/retroc.git
 cd retroc
 
 # 3️⃣ Add upstream remote
-git remote add upstream https://github.com/yourusername/retroc.git
+git remote add upstream https://github.com/VishalNandy17/retroc.git
 
 # 4️⃣ Create a feature branch
 git checkout -b feature/amazing-feature
@@ -1335,7 +1335,7 @@ Vote for features you want to see next!
 
 ![Discord](https://img.shields.io/discord/123456789?style=for-the-badge&logo=discord&logoColor=white&color=5865F2&label=Discord)
 ![Twitter Follow](https://img.shields.io/twitter/follow/retroc?style=for-the-badge&logo=twitter&color=1DA1F2)
-![GitHub Stars](https://img.shields.io/github/stars/yourusername/retroc?style=for-the-badge&color=fbbf24)
+![GitHub Stars](https://img.shields.io/github/stars/VishalNandy17/retroc?style=for-the-badge&color=fbbf24)
 
 </div>
 
@@ -1496,70 +1496,6 @@ Common questions answered
 
 <div align="center">
 
-## 💬 Community & Support
-
-</div>
-
-<br/>
-
-<table>
-<tr>
-<td align="center" width="25%">
-
-### 💭 Discord
-
-Join our community
-
-[![Discord](https://img.shields.io/badge/Discord-Join_Chat-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/retroc)
-
-</td>
-<td align="center" width="25%">
-
-### 🐦 Twitter
-
-Follow for updates
-
-[![Twitter](https://img.shields.io/badge/Twitter-Follow-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/retroc)
-
-</td>
-<td align="center" width="25%">
-
-### 📧 Email
-
-Business inquiries
-
-[![Email](https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:hello@retroc.dev)
-
-</td>
-<td align="center" width="25%">
-
-### 🌐 Website
-
-Learn more
-
-[![Website](https://img.shields.io/badge/Website-Visit-6366f1?style=for-the-badge&logo=google-chrome&logoColor=white)](https://retroc.dev)
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-### 🆘 Getting Help
-
-- 🐛 **Bug Reports**: [Create an issue](https://github.com/VishalNandy17/retroc/issues/new?template=bug_report.md)
-- 💡 **Feature Requests**: [Request a feature](https://github.com/VishalNandy17/retroc/issues/new?template=feature_request.md)
-- 💬 **Questions**: [GitHub Discussions](https://github.com/VishalNandy17/retroc/discussions)
-- 📖 **Documentation**: [docs.retroc.dev](https://docs.retroc.dev)
-
-<br/>
-
----
-
-<br/>
-
-<div align="center">
-
 ## 📜 License
 
 </div>
@@ -1636,14 +1572,6 @@ For continuous innovation in smart contract development
 
 <br/>
 
-### 🌟 Special Thanks
-
-- **Hardhat Team** - Amazing developer tools
-- **Foundry Team** - Blazing fast Solidity testing
-- **All Contributors** - For making RetroC better every day
-- **Early Adopters** - For valuable feedback and support
-
-<br/>
 
 ---
 
@@ -1675,17 +1603,10 @@ For continuous innovation in smart contract development
 
 <br/>
 
-[![Star History Chart](https://api.star-history.com/svg?repos=VishalNandy17/retroc&type=Date)](https://star-history.com/#VishalNandy17/retroc&Date)
-
-<br/>
 
 ---
 
 <sub>⭐ **Star us on GitHub** — it motivates us to keep improving!</sub>
-
-<br/>
-
-**[🏠 Home](https://retroc.dev)** · **[📖 Docs](https://docs.retroc.dev)** · **[🐛 Report Bug](https://github.com/VishalNandy17/retroc/issues)** · **[✨ Request Feature](https://github.com/VishalNandy17/retroc/issues)**
 
 <br/>
 
