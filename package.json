@@ -2,7 +2,7 @@
   "name": "retroc",
   "displayName": "RetroC",
   "description": "Solidity contract generator with production-ready templates and tests.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "VishalNandy17",
   "engines": {
     "vscode": "^1.60.0"
@@ -25,55 +25,246 @@
   "main": "dist/extension.js",
   "contributes": {
     "commands": [
-      { "command": "retroc.generateERC20", "title": "RetroC: Generate ERC20 Template", "category": "RetroC" },
-      { "command": "retroc.generateERC721", "title": "RetroC: Generate ERC721 Template", "category": "RetroC" },
-      { "command": "retroc.generateERC1155", "title": "RetroC: Generate ERC1155 Template", "category": "RetroC" },
-      { "command": "retroc.generateDAO", "title": "RetroC: Generate DAO Template", "category": "RetroC" },
-      { "command": "retroc.generateMultisig", "title": "RetroC: Generate Multisig Template", "category": "RetroC" },
-      { "command": "retroc.generateStaking", "title": "RetroC: Generate Staking Template", "category": "RetroC" },
-      { "command": "retroc.generateVesting", "title": "RetroC: Generate Vesting Template", "category": "RetroC" },
-      { "command": "retroc.generateTests", "title": "RetroC: Generate Test File", "category": "RetroC" },
-      { "command": "retroc.generateAllTests", "title": "RetroC: Generate All Tests", "category": "RetroC" },
-      { "command": "retroc.generateDeployment", "title": "RetroC: Generate Deployment Script", "category": "RetroC" },
-      { "command": "retroc.openSettings", "title": "RetroC: Open Settings", "category": "RetroC" }
+      {
+        "command": "retroc.generateERC20",
+        "title": "RetroC: Generate ERC20 Template",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateERC721",
+        "title": "RetroC: Generate ERC721 Template",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateERC1155",
+        "title": "RetroC: Generate ERC1155 Template",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateDAO",
+        "title": "RetroC: Generate DAO Template",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateMultisig",
+        "title": "RetroC: Generate Multisig Template",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateStaking",
+        "title": "RetroC: Generate Staking Template",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateVesting",
+        "title": "RetroC: Generate Vesting Template",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateTests",
+        "title": "RetroC: Generate Test File",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateAllTests",
+        "title": "RetroC: Generate All Tests",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateDeployment",
+        "title": "RetroC: Generate Deployment Script",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.openSettings",
+        "title": "RetroC: Open Settings",
+        "category": "RetroC"
+      }
     ],
     "keybindings": [
-      { "command": "retroc.generateERC20", "key": "ctrl+alt+r e", "mac": "cmd+alt+r e", "when": "editorTextFocus" },
-      { "command": "retroc.generateERC721", "key": "ctrl+alt+r n", "mac": "cmd+alt+r n", "when": "editorTextFocus" },
-      { "command": "retroc.generateERC1155", "key": "ctrl+alt+r m", "mac": "cmd+alt+r m", "when": "editorTextFocus" },
-      { "command": "retroc.generateDAO", "key": "ctrl+alt+r d", "mac": "cmd+alt+r d", "when": "editorTextFocus" },
-      { "command": "retroc.generateMultisig", "key": "ctrl+alt+r w", "mac": "cmd+alt+r w", "when": "editorTextFocus" },
-      { "command": "retroc.generateStaking", "key": "ctrl+alt+r s", "mac": "cmd+alt+r s", "when": "editorTextFocus" },
-      { "command": "retroc.generateVesting", "key": "ctrl+alt+r v", "mac": "cmd+alt+r v", "when": "editorTextFocus" },
-      { "command": "retroc.generateTests", "key": "ctrl+alt+r t", "mac": "cmd+alt+r t", "when": "editorTextFocus" },
-      { "command": "retroc.generateAllTests", "key": "ctrl+alt+r a", "mac": "cmd+alt+r a", "when": "editorTextFocus" },
-      { "command": "retroc.generateDeployment", "key": "ctrl+alt+r p", "mac": "cmd+alt+r p", "when": "editorTextFocus" },
-      { "command": "retroc.openSettings", "key": "ctrl+alt+r c", "mac": "cmd+alt+r c", "when": "editorTextFocus" }
+      {
+        "command": "retroc.generateERC20",
+        "key": "ctrl+alt+r e",
+        "mac": "cmd+alt+r e",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateERC721",
+        "key": "ctrl+alt+r n",
+        "mac": "cmd+alt+r n",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateERC1155",
+        "key": "ctrl+alt+r m",
+        "mac": "cmd+alt+r m",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateDAO",
+        "key": "ctrl+alt+r d",
+        "mac": "cmd+alt+r d",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateMultisig",
+        "key": "ctrl+alt+r w",
+        "mac": "cmd+alt+r w",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateStaking",
+        "key": "ctrl+alt+r s",
+        "mac": "cmd+alt+r s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateVesting",
+        "key": "ctrl+alt+r v",
+        "mac": "cmd+alt+r v",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateTests",
+        "key": "ctrl+alt+r t",
+        "mac": "cmd+alt+r t",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateAllTests",
+        "key": "ctrl+alt+r a",
+        "mac": "cmd+alt+r a",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.generateDeployment",
+        "key": "ctrl+alt+r p",
+        "mac": "cmd+alt+r p",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.openSettings",
+        "key": "ctrl+alt+r c",
+        "mac": "cmd+alt+r c",
+        "when": "editorTextFocus"
+      }
     ],
     "configuration": {
       "title": "RetroC",
       "properties": {
-        "retroc.defaultSolidityVersion": { "type": "string", "default": "^0.8.24", "description": "Solidity compiler version (used when override enabled)" },
-        "retroc.defaultLicense": { "type": "string", "default": "MIT", "description": "SPDX license identifier" },
-        "retroc.openZeppelinVersion": { "type": "string", "default": "5.0.1", "description": "OpenZeppelin contracts version (used when override enabled)" },
-        "retroc.allowVersionOverride": { "type": "boolean", "default": false, "description": "Allow overriding locked Solidity/OpenZeppelin versions using settings" },
-        "retroc.autoGenerateTests": { "type": "boolean", "default": true, "description": "Auto-generate tests with contracts" },
-        "retroc.testFramework": { "type": "string", "enum": ["hardhat", "foundry"], "default": "hardhat", "description": "Testing framework" },
-        "retroc.useTypeScript": { "type": "boolean", "default": true, "description": "Use TypeScript for tests" },
-        "retroc.contractsDirectory": { "type": "string", "default": "contracts", "description": "Contracts output directory" },
-        "retroc.testsDirectory": { "type": "string", "default": "test", "description": "Tests output directory" },
-        "retroc.scriptsDirectory": { "type": "string", "default": "scripts", "description": "Scripts output directory" },
-        "retroc.indentSize": { "type": "number", "default": 4, "description": "Spaces per indent level" },
-        "retroc.useSpaces": { "type": "boolean", "default": true, "description": "Use spaces for indentation" },
-        "retroc.addComments": { "type": "boolean", "default": true, "description": "Include explanatory comments" },
-        "retroc.importStyle": { "type": "string", "enum": ["named", "default"], "default": "named", "description": "Import style" },
-        "retroc.includeReentrancyGuard": { "type": "boolean", "default": true, "description": "Add ReentrancyGuard" },
-        "retroc.includePausable": { "type": "boolean", "default": true, "description": "Add Pausable" },
-        "retroc.includeAccessControl": { "type": "boolean", "default": true, "description": "Add AccessControl" },
-        "retroc.enableGasOptimizations": { "type": "boolean", "default": true, "description": "Enable gas optimizations" },
-        "retroc.includeNatSpec": { "type": "boolean", "default": true, "description": "Add NatSpec documentation" },
-        "retroc.deploymentScripts": { "type": "boolean", "default": true, "description": "Generate deployment scripts" },
-        "retroc.generateReadme": { "type": "boolean", "default": true, "description": "Generate contract README" }
+        "retroc.defaultSolidityVersion": {
+          "type": "string",
+          "default": "^0.8.24",
+          "description": "Solidity compiler version (used when override enabled)"
+        },
+        "retroc.defaultLicense": {
+          "type": "string",
+          "default": "MIT",
+          "description": "SPDX license identifier"
+        },
+        "retroc.openZeppelinVersion": {
+          "type": "string",
+          "default": "5.0.1",
+          "description": "OpenZeppelin contracts version (used when override enabled)"
+        },
+        "retroc.allowVersionOverride": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow overriding locked Solidity/OpenZeppelin versions using settings"
+        },
+        "retroc.autoGenerateTests": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto-generate tests with contracts"
+        },
+        "retroc.testFramework": {
+          "type": "string",
+          "enum": [
+            "hardhat",
+            "foundry"
+          ],
+          "default": "hardhat",
+          "description": "Testing framework"
+        },
+        "retroc.useTypeScript": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use TypeScript for tests"
+        },
+        "retroc.contractsDirectory": {
+          "type": "string",
+          "default": "contracts",
+          "description": "Contracts output directory"
+        },
+        "retroc.testsDirectory": {
+          "type": "string",
+          "default": "test",
+          "description": "Tests output directory"
+        },
+        "retroc.scriptsDirectory": {
+          "type": "string",
+          "default": "scripts",
+          "description": "Scripts output directory"
+        },
+        "retroc.indentSize": {
+          "type": "number",
+          "default": 4,
+          "description": "Spaces per indent level"
+        },
+        "retroc.useSpaces": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use spaces for indentation"
+        },
+        "retroc.addComments": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include explanatory comments"
+        },
+        "retroc.importStyle": {
+          "type": "string",
+          "enum": [
+            "named",
+            "default"
+          ],
+          "default": "named",
+          "description": "Import style"
+        },
+        "retroc.includeReentrancyGuard": {
+          "type": "boolean",
+          "default": true,
+          "description": "Add ReentrancyGuard"
+        },
+        "retroc.includePausable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Add Pausable"
+        },
+        "retroc.includeAccessControl": {
+          "type": "boolean",
+          "default": true,
+          "description": "Add AccessControl"
+        },
+        "retroc.enableGasOptimizations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable gas optimizations"
+        },
+        "retroc.includeNatSpec": {
+          "type": "boolean",
+          "default": true,
+          "description": "Add NatSpec documentation"
+        },
+        "retroc.deploymentScripts": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate deployment scripts"
+        },
+        "retroc.generateReadme": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate contract README"
+        }
       }
     }
   },
@@ -87,11 +278,17 @@
     "test": "node ./out/test/runTests.js",
     "pretest": "tsc -p . && node ./scripts/copy-tests.js"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com" },
-  "repository": { "type": "git", "url": "git+https://github.com/VishalNandy17/RetroC.git" },
-  "bugs": { "url": "https://github.com/VishalNandy17/RetroC/issues" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VishalNandy17/RetroC.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VishalNandy17/RetroC/issues"
+  },
   "homepage": "https://github.com/VishalNandy17/RetroC#readme",
-  "publishConfig": { "registry": "https://npm.pkg.github.com" },
   "packageManager": "npm@10",
   "devDependencies": {
     "@types/node": "^20.11.30",
@@ -111,5 +308,3 @@
     "@types/glob": "^8.1.0"
   }
 }
-
-
