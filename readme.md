@@ -2,7 +2,7 @@
 
 # 🔷 RetroC
 
-<img src="https://raw.githubusercontent.com/VishalNandy17/retroc/main/assets/logo.png" alt="RetroC Logo" width="300px"/>
+<img src="src/logo/logo.png" alt="RetroC Logo" width="300px"/>
 
 ### *Solidity Contract Generator for the Modern Developer*
 
@@ -15,7 +15,7 @@
 [![Stars](https://img.shields.io/github/stars/VishalNandy17/retroc?style=for-the-badge&logo=github&color=fbbf24)](https://github.com/VishalNandy17/retroc/stargazers)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/VishalNandy17/retroc/main/assets/logo.png" alt="RetroC Logo" width="200px"/>
+  <img src="src/logo/logo.png" alt="RetroC Logo" width="200px"/>
 </p>
 
 <p align="center">
@@ -33,7 +33,7 @@
 ## 🎯 What is RetroC?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/VishalNandy17/retroc/main/assets/logo.png" alt="RetroC" width="150px"/>
+<img src="src/logo/logo.png" alt="RetroC" width="150px"/>
 </div>
 
 <br/>
