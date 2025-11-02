@@ -3,16 +3,53 @@ import * as vscode from 'vscode';
 import { writeTextFile } from '../utils/fileWriter';
 import { replacePlaceholders } from '../utils/placeholderReplacer';
 import { getDefaultSettings } from '../config/settings';
-import { generateBasicHardhatTest } from './testGenerator';
+import { generateBasicHardhatTest, generateBasicFoundryTest } from './testGenerator';
 import { generateDeploymentScript } from './deploymentGenerator';
+import { generateContractReadme } from './readmeGenerator';
 
 async function readTemplate(relativePath: string): Promise<string> {
   const ext = vscode.extensions.getExtension('VishalNandy17.retroc');
-  const base = ext?.extensionPath ?? vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
-  if (!base) throw new Error('Cannot resolve template base path');
-  const templatePath = path.join(base, 'src', 'templates', `${relativePath}.template.sol`);
-  const bytes = await vscode.workspace.fs.readFile(vscode.Uri.file(templatePath));
-  return Buffer.from(bytes).toString('utf8');
+  const extensionPath = ext?.extensionPath;
+  
+  // List of possible template paths to try (in order of priority)
+  const possiblePaths: string[] = [];
+  
+  if (extensionPath) {
+    // 1. Try dist/templates (packaged extension - templates copied by webpack)
+    // This is the primary path for packaged extensions
+    possiblePaths.push(path.join(extensionPath, 'dist', 'templates', `${relativePath}.template.sol`));
+    // 2. Try templates at root of dist (alternative structure)
+    possiblePaths.push(path.join(extensionPath, 'templates', `${relativePath}.template.sol`));
+    // 3. Try src/templates (development mode fallback)
+    possiblePaths.push(path.join(extensionPath, 'src', 'templates', `${relativePath}.template.sol`));
+  }
+  
+  // 4. Try workspace folder (development mode when running with F5)
+  if (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
+    const workspacePath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+    // Try dist/templates first in workspace (after build)
+    possiblePaths.push(path.join(workspacePath, 'dist', 'templates', `${relativePath}.template.sol`));
+    // Then src/templates (source files)
+    possiblePaths.push(path.join(workspacePath, 'src', 'templates', `${relativePath}.template.sol`));
+  }
+
+  // Try each path in order
+  for (const templatePath of possiblePaths) {
+    try {
+      const bytes = await vscode.workspace.fs.readFile(vscode.Uri.file(templatePath));
+      return Buffer.from(bytes).toString('utf8');
+    } catch (err) {
+      // Continue to next path
+      continue;
+    }
+  }
+
+  // If none of the paths worked, show a detailed error with extension path info
+  const triedPaths = possiblePaths.map(p => `  - ${p}`).join('\n');
+  const extensionInfo = extensionPath ? `Extension path: ${extensionPath}` : 'Extension not found';
+  const msg = `RetroC: Template not found: ${relativePath}.template.sol\n\n${extensionInfo}\n\nTried paths:\n${triedPaths}`;
+  vscode.window.showErrorMessage(msg);
+  throw new Error(msg);
 }
 
 export async function generateContract(
@@ -33,6 +70,7 @@ export async function generateContract(
       INCLUDE_ACCESS_CONTROL: settings.includeAccessControl ? 'true' : 'false',
       INCLUDE_REENTRANCY_GUARD: settings.includeReentrancyGuard ? 'true' : 'false',
       INCLUDE_NATSPEC: settings.includeNatSpec ? 'true' : 'false',
+      ENABLE_GAS_OPTIMIZATIONS: settings.enableGasOptimizations ? 'true' : 'false',
     };
     const contents = replacePlaceholders(tpl, withConfig);
     await writeTextFile(outputFileName, contents, 'contracts');
@@ -42,7 +80,11 @@ export async function generateContract(
     if (settings.autoGenerateTests) {
       try {
         const baseName = outputFileName.replace(/\.sol$/i, '');
-        await generateBasicHardhatTest(baseName, settings.useTypeScript);
+        if (settings.testFramework === 'foundry') {
+          await generateBasicFoundryTest(baseName);
+        } else {
+          await generateBasicHardhatTest(baseName, settings.useTypeScript);
+        }
       } catch (err) {
         vscode.window.showWarningMessage(`RetroC: Failed to auto-generate test file: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
@@ -53,6 +95,14 @@ export async function generateContract(
         await generateDeploymentScript(baseName);
       } catch (err) {
         vscode.window.showWarningMessage(`RetroC: Failed to auto-generate deployment script: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
+    }
+    if (settings.generateReadme) {
+      try {
+        const baseName = outputFileName.replace(/\.sol$/i, '');
+        await generateContractReadme(baseName, outputFileName);
+      } catch (err) {
+        vscode.window.showWarningMessage(`RetroC: Failed to auto-generate README: ${err instanceof Error ? err.message : 'Unknown error'}`);
       }
     }
   } catch (err) {

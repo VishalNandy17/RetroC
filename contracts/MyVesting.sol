@@ -1,24 +1,24 @@
-// SPDX-License-Identifier: {{LICENSE}}
-pragma solidity {{SOLIDITY_VERSION}};
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-/* IF INCLUDE_REENTRANCY_GUARD */
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-/* ENDIF */
-/* IF INCLUDE_PAUSABLE */
-import "@openzeppelin/contracts/security/Pausable.sol";
-/* ENDIF */
 
-contract {{VESTING_NAME}} is 
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+
+import "@openzeppelin/contracts/security/Pausable.sol";
+
+
+contract MyVesting is 
     Ownable
-    /* IF INCLUDE_PAUSABLE */
+    
     , Pausable
-    /* ENDIF */
-    /* IF INCLUDE_REENTRANCY_GUARD */
+    
+    
     , ReentrancyGuard
-    /* ENDIF */
+    
 {
     using SafeERC20 for IERC20;
     
@@ -91,7 +91,7 @@ contract {{VESTING_NAME}} is
         return vested > s.released ? vested - s.released : 0;
     }
 
-    function release(address beneficiary) external /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ /* IF INCLUDE_REENTRANCY_GUARD */ nonReentrant /* ENDIF */ {
+    function release(address beneficiary) external  whenNotPaused   nonReentrant  {
         uint256 amount = releasable(beneficiary);
         require(amount > 0, "no tokens to release");
         schedules[beneficiary].released += amount;
@@ -99,7 +99,7 @@ contract {{VESTING_NAME}} is
         emit Released(beneficiary, amount);
     }
 
-    function releaseBatch(address[] memory _beneficiaries) external /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ /* IF INCLUDE_REENTRANCY_GUARD */ nonReentrant /* ENDIF */ {
+    function releaseBatch(address[] memory _beneficiaries) external  whenNotPaused   nonReentrant  {
         require(_beneficiaries.length > 0, "empty array");
         uint256[] memory amounts = new uint256[](_beneficiaries.length);
         
@@ -124,7 +124,7 @@ contract {{VESTING_NAME}} is
         return beneficiaries.length;
     }
     
-    /* IF INCLUDE_PAUSABLE */
+    
     function pause() public onlyOwner {
         _pause();
     }
@@ -132,7 +132,7 @@ contract {{VESTING_NAME}} is
     function unpause() public onlyOwner {
         _unpause();
     }
-    /* ENDIF */
+    
 }
 
 

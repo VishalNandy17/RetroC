@@ -2,6 +2,8 @@
 pragma solidity {{SOLIDITY_VERSION}};
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 /* IF INCLUDE_PAUSABLE */
 import "@openzeppelin/contracts/security/Pausable.sol";
@@ -9,7 +11,16 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/interfaces/IERC2981.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract {{TOKEN_NAME}} is ERC721URIStorage, Ownable/* IF INCLUDE_PAUSABLE */, Pausable/* ENDIF */, IERC2981 {
+contract {{TOKEN_NAME}} is 
+    ERC721URIStorage
+    , ERC721Enumerable
+    , ERC721Burnable
+    , Ownable
+    /* IF INCLUDE_PAUSABLE */
+    , Pausable
+    /* ENDIF */
+    , IERC2981 
+{
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
     
@@ -31,6 +42,20 @@ contract {{TOKEN_NAME}} is ERC721URIStorage, Ownable/* IF INCLUDE_PAUSABLE */, P
         return tokenId;
     }
 
+    function mintBatch(address to, string[] memory uris) public onlyOwner returns (uint256[] memory) {
+        require(to != address(0), "mint to zero address");
+        require(uris.length > 0, "empty uris array");
+        uint256[] memory tokenIds = new uint256[](uris.length);
+        for (uint256 i = 0; i < uris.length; i++) {
+            _tokenIdCounter.increment();
+            uint256 tokenId = _tokenIdCounter.current();
+            _safeMint(to, tokenId);
+            _setTokenURI(tokenId, uris[i]);
+            tokenIds[i] = tokenId;
+        }
+        return tokenIds;
+    }
+
     function setRoyaltyInfo(address receiver, uint96 feeBps) external onlyOwner {
         require(receiver != address(0), "invalid receiver");
         require(feeBps <= 1000, "fee too high"); // Max 10%
@@ -43,8 +68,25 @@ contract {{TOKEN_NAME}} is ERC721URIStorage, Ownable/* IF INCLUDE_PAUSABLE */, P
         return (royaltyReceiver, royaltyAmount);
     }
 
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, IERC165) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, ERC721Enumerable, IERC165) returns (bool) {
         return interfaceId == type(IERC2981).interfaceId || super.supportsInterface(interfaceId);
+    }
+    
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId,
+        uint256 batchSize
+    ) internal virtual override(ERC721, ERC721Enumerable) /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ {
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
+    }
+
+    function _burn(uint256 tokenId) internal virtual override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }
+
+    function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {
+        return super.tokenURI(tokenId);
     }
     
     /* IF INCLUDE_PAUSABLE */
@@ -54,14 +96,6 @@ contract {{TOKEN_NAME}} is ERC721URIStorage, Ownable/* IF INCLUDE_PAUSABLE */, P
     
     function unpause() public onlyOwner {
         _unpause();
-    }
-    
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
-        internal
-        override
-        whenNotPaused
-    {
-        super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
     /* ENDIF */
 }

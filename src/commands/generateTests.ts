@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
-import { writeTextFile } from '../utils/fileWriter';
 import { getDefaultSettings } from '../config/settings';
 import { isNonEmpty, isValidSolidityIdentifier } from '../utils/validator';
 import { error } from '../utils/logger';
+import { generateBasicHardhatTest, generateBasicFoundryTest } from '../generators/testGenerator';
+import { writeTextFile } from '../utils/fileWriter';
 
 export async function generateTests() {
   try {
@@ -18,10 +19,14 @@ export async function generateTests() {
     });
     if (!contract) return;
 
-    const ext = settings.useTypeScript ? 'ts' : 'js';
-    const content = `import { expect } from 'chai';\n\ndescribe('${contract}', () => {\n  it('deploys', async () => {\n    expect(true).to.eq(true);\n  });\n});\n`;
-    await writeTextFile(`${contract}.test.${ext}`, content, 'test');
-    vscode.window.showInformationMessage(`RetroC: Created test ${contract}.test.${ext}`);
+    if (settings.testFramework === 'foundry') {
+      await generateBasicFoundryTest(contract);
+      vscode.window.showInformationMessage(`RetroC: Created Foundry test ${contract}.t.sol`);
+    } else {
+      await generateBasicHardhatTest(contract, settings.useTypeScript);
+      const ext = settings.useTypeScript ? 'ts' : 'js';
+      vscode.window.showInformationMessage(`RetroC: Created test ${contract}.test.${ext}`);
+    }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Failed to generate test file';
     error('Error generating test file', err);

@@ -2,6 +2,66 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.2.0 - 2025-11-02
+### Feature Complete Release - All README Promises Implemented
+
+### Added
+- **ERC721 Template Enhancements:**
+  - ✅ ERC721Enumerable support (token enumeration functionality)
+  - ✅ ERC721Burnable support (token burning functionality)
+  - ✅ Batch minting function (`mintBatch`) for multiple tokens at once
+  - ✅ Proper override handling for all ERC721 extensions
+  
+- **Foundry Test Generation:**
+  - ✅ Full Foundry test framework support
+  - ✅ Foundry test template generation (`.t.sol` files)
+  - ✅ Framework selection based on `retroc.testFramework` setting
+  - ✅ Comprehensive test structure with deployment, function, security, and edge case sections
+  
+- **Staking Template Enhancements:**
+  - ✅ Rewards system with automatic reward calculation
+  - ✅ Lock periods (configurable lock duration)
+  - ✅ APY calculation and management
+  - ✅ `claimRewards()` function for claiming accumulated rewards
+  - ✅ `getPendingRewards()` view function
+  - ✅ `calculateAPY()` helper function
+  - ✅ `setAPY()` and `setLockPeriod()` admin functions
+  - ✅ Emergency exit function (forfeits rewards)
+  - ✅ Events for all major operations
+  
+- **Vesting Template Enhancements:**
+  - ✅ Revocable vesting with `revoke()` function
+  - ✅ Batch release functionality (`releaseBatch()`)
+  - ✅ Beneficiary tracking array
+  - ✅ Helper functions (`getBeneficiaries()`, `getBeneficiariesCount()`)
+  - ✅ Enhanced events for vesting operations
+  - ✅ Proper revocation logic that preserves vested amounts
+  
+- **README Generation:**
+  - ✅ Automatic README generation for generated contracts
+  - ✅ README includes contract overview, features, configuration, and testing info
+  - ✅ Configurable via `retroc.generateReadme` setting
+  
+- **Timelock Template:**
+  - ✅ New Timelock template in governance folder
+  - ✅ OpenZeppelin TimelockController wrapper
+  - ✅ Configurable min delay, proposers, executors, and admin
+  
+- **Gas Optimizations:**
+  - ✅ `enableGasOptimizations` setting now actively used in templates
+  - ✅ Gas optimization comments in ERC20 template
+  - ✅ Proper conditional compilation based on setting
+
+### Enhanced
+- **Test Generation:**
+  - ✅ Comprehensive test templates with multiple test categories
+  - ✅ Deployment tests
+  - ✅ Function tests (placeholder structure)
+  - ✅ Security tests (placeholder structure)
+  - ✅ Edge case tests (placeholder structure)
+  - ✅ Better TypeScript/JavaScript test generation
+  - ✅ Framework-specific test generation (Hardhat vs Foundry)
+
 ## 1.1.1 - 2025-11-02
 ### Fixed
 - Publishing configuration for GitHub Packages

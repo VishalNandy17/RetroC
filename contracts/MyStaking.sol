@@ -1,24 +1,24 @@
-// SPDX-License-Identifier: {{LICENSE}}
-pragma solidity {{SOLIDITY_VERSION}};
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-/* IF INCLUDE_REENTRANCY_GUARD */
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-/* ENDIF */
-/* IF INCLUDE_PAUSABLE */
-import "@openzeppelin/contracts/security/Pausable.sol";
-/* ENDIF */
 
-contract {{STAKING_NAME}} is 
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+
+import "@openzeppelin/contracts/security/Pausable.sol";
+
+
+contract MyStaking is 
     Ownable
-    /* IF INCLUDE_PAUSABLE */
+    
     , Pausable
-    /* ENDIF */
-    /* IF INCLUDE_REENTRANCY_GUARD */
+    
+    
     , ReentrancyGuard
-    /* ENDIF */
+    
 {
     using SafeERC20 for IERC20;
     
@@ -53,7 +53,7 @@ contract {{STAKING_NAME}} is
         lockPeriod = _lockPeriodSeconds;
     }
 
-    function stake(uint256 amount) external /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ /* IF INCLUDE_REENTRANCY_GUARD */ nonReentrant /* ENDIF */ {
+    function stake(uint256 amount) external  whenNotPaused   nonReentrant  {
         require(amount > 0, "amount = 0");
         
         // Update pending rewards before new stake
@@ -71,7 +71,7 @@ contract {{STAKING_NAME}} is
         emit Staked(msg.sender, amount, stakeInfo.lockUntil);
     }
 
-    function unstake(uint256 amount) external /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ /* IF INCLUDE_REENTRANCY_GUARD */ nonReentrant /* ENDIF */ {
+    function unstake(uint256 amount) external  whenNotPaused   nonReentrant  {
         StakeInfo storage stakeInfo = stakes[msg.sender];
         require(stakeInfo.amount >= amount, "insufficient staked");
         require(block.timestamp >= stakeInfo.lockUntil, "still locked");
@@ -86,7 +86,7 @@ contract {{STAKING_NAME}} is
         emit Unstaked(msg.sender, amount);
     }
 
-    function claimRewards() external /* IF INCLUDE_REENTRANCY_GUARD */ nonReentrant /* ENDIF */ {
+    function claimRewards() external  nonReentrant  {
         _updateRewards(msg.sender);
         _claimRewards();
     }
@@ -140,7 +140,7 @@ contract {{STAKING_NAME}} is
         lockPeriod = newLockPeriod;
     }
 
-    function emergencyExit() external /* IF INCLUDE_REENTRANCY_GUARD */ nonReentrant /* ENDIF */ {
+    function emergencyExit() external  nonReentrant  {
         StakeInfo storage stakeInfo = stakes[msg.sender];
         require(stakeInfo.amount > 0, "nothing staked");
         
@@ -153,7 +153,7 @@ contract {{STAKING_NAME}} is
         emit Unstaked(msg.sender, amount);
     }
     
-    /* IF INCLUDE_PAUSABLE */
+    
     function pause() public onlyOwner {
         _pause();
     }
@@ -161,7 +161,7 @@ contract {{STAKING_NAME}} is
     function unpause() public onlyOwner {
         _unpause();
     }
-    /* ENDIF */
+    
 }
 
 

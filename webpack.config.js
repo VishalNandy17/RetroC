@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -25,7 +26,17 @@ module.exports = {
         use: [{ loader: 'ts-loader' }]
       }
     ]
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src', 'templates'),
+          to: path.resolve(__dirname, 'dist', 'templates')
+        }
+      ]
+    })
+  ]
 };
 
 
