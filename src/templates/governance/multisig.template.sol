@@ -1,7 +1,18 @@
 // SPDX-License-Identifier: {{LICENSE}}
 pragma solidity ^{{SOLIDITY_VERSION}};
 
-contract {{WALLET_NAME}}Wallet {
+/* IF INCLUDE_REENTRANCY_GUARD */
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+/* ENDIF */
+/* IF INCLUDE_PAUSABLE */
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+/* ENDIF */
+
+contract {{WALLET_NAME}}Wallet
+    /* IF INCLUDE_REENTRANCY_GUARD */is ReentrancyGuard/* ENDIF */
+    /* IF INCLUDE_PAUSABLE */is Pausable, Ownable/* ENDIF */
+{
     event Deposit(address indexed sender, uint amount, uint balance);
     event Submit(uint indexed txId);
     event Approve(address indexed owner, uint indexed txId);
@@ -28,6 +39,16 @@ contract {{WALLET_NAME}}Wallet {
         _;
     }
 
+    modifier txExists(uint _txId) {
+        require(_txId < transactions.length, "tx does not exist");
+        _;
+    }
+
+    modifier notExecuted(uint _txId) {
+        require(!transactions[_txId].executed, "tx already executed");
+        _;
+    }
+
     constructor(address[] memory _owners, uint _required) {
         require(_owners.length > 0, "owners required");
         require(_required > 0 && _required <= _owners.length, "invalid required");
@@ -46,27 +67,27 @@ contract {{WALLET_NAME}}Wallet {
     }
 
     function submit(address to, uint value, bytes memory data) external onlyOwner /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ {
+        require(to != address(0), "invalid recipient");
         transactions.push(Transaction({to: to, value: value, data: data, executed: false, numConfirmations: 0}));
         emit Submit(transactions.length - 1);
     }
 
-    function approveTx(uint txId) external onlyOwner {
+    function approveTx(uint txId) external onlyOwner txExists(txId) notExecuted(txId) {
         require(!approved[txId][msg.sender], "already approved");
         approved[txId][msg.sender] = true;
         transactions[txId].numConfirmations += 1;
         emit Approve(msg.sender, txId);
     }
 
-    function revokeTx(uint txId) external onlyOwner {
+    function revokeTx(uint txId) external onlyOwner txExists(txId) notExecuted(txId) {
         require(approved[txId][msg.sender], "not approved");
         approved[txId][msg.sender] = false;
         transactions[txId].numConfirmations -= 1;
         emit Revoke(msg.sender, txId);
     }
 
-    function execute(uint txId) external onlyOwner /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ {
+    function execute(uint txId) external onlyOwner txExists(txId) notExecuted(txId) /* IF INCLUDE_PAUSABLE */ whenNotPaused /* ENDIF */ /* IF INCLUDE_REENTRANCY_GUARD */ nonReentrant /* ENDIF */ {
         Transaction storage transaction = transactions[txId];
-        require(!transaction.executed, "already executed");
         require(transaction.numConfirmations >= required, "insufficient confirmations");
 
         transaction.executed = true;
@@ -74,6 +95,16 @@ contract {{WALLET_NAME}}Wallet {
         require(ok, "tx failed");
         emit Execute(txId);
     }
+
+    /* IF INCLUDE_PAUSABLE */
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    function unpause() public onlyOwner {
+        _unpause();
+    }
+    /* ENDIF */
 }
 
 

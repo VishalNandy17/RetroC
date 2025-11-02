@@ -1,15 +1,39 @@
 {
-  "name": "retroc-solidity-templates",
-  "displayName": "RetroC Solidity Templates",
-  "description": "Generate Solidity smart contract templates with ERC20, ERC721, ERC1155, DAO, Staking, Vesting contracts.",
-  "version": "1.0.4",
+  "name": "retroc",
+  "displayName": "RetroC - Solidity Smart Contract Generator",
+  "description": "BE SMARTER, CODE FASTER",
+  "version": "1.0.5",
   "publisher": "VishalNandy17",
   "engines": {
     "vscode": "^1.60.0"
   },
   "categories": [
+    "Snippets",
     "Other"
   ],
+  "keywords": [
+    "solidity",
+    "smart-contracts",
+    "ethereum",
+    "web3",
+    "erc20",
+    "erc721",
+    "erc1155",
+    "dao",
+    "staking",
+    "vesting",
+    "multisig",
+    "hardhat",
+    "foundry",
+    "template",
+    "generator",
+    "blockchain"
+  ],
+  "icon": "src/logo/logo.png",
+  "galleryBanner": {
+    "color": "#6366f1",
+    "theme": "dark"
+  },
   "activationEvents": [
     "onCommand:retroc.generateERC20",
     "onCommand:retroc.generateERC721",
@@ -272,14 +296,12 @@
     "compile": "webpack --mode development",
     "watch": "webpack --watch --mode development",
     "build": "webpack --mode production",
-    "package": "vsce package",
+    "package": "npx @vscode/vsce package",
+    "publish": "npx @vscode/vsce publish",
     "lint": "eslint --ext .ts src",
     "format": "prettier --write .",
     "test": "node ./out/test/runTests.js",
     "pretest": "tsc -p . && node ./scripts/copy-tests.js"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
@@ -293,6 +315,8 @@
   "devDependencies": {
     "@types/node": "^20.11.30",
     "@types/vscode": "^1.60.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",

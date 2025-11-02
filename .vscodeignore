@@ -1,0 +1,46 @@
+# Node
+node_modules/
+.npm/
+
+# Build outputs
+out/
+*.vsix
+
+# VS Code test runner cache
+.vscode-test/
+.test-workspace/
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+*~
+
+# Source files (only dist should be included)
+# Exclude src files except logo
+src/**/*
+!src/logo/
+!src/logo/**
+tsconfig.json
+webpack.config.js
+.eslintrc.json
+.prettierrc
+scripts/
+
+# Development files
+*.vsix
+npm/
+
+# Git
+.git/
+.gitignore
+
+# Documentation (README will be included automatically)
+# README.md is included by default for marketplace
+
+# Tests (only needed for development)
+src/test/
+test/
+

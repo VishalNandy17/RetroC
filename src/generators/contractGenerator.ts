@@ -20,30 +20,44 @@ export async function generateContract(
   outputFileName: string,
   placeholders: Record<string, string>,
 ) {
-  const settings = getDefaultSettings();
-  const tpl = await readTemplate(templateId);
-  const withConfig = {
-    ...placeholders,
-    LICENSE: placeholders.LICENSE ?? settings.defaultLicense,
-    SOLIDITY_VERSION: settings.allowVersionOverride
-      ? (placeholders.SOLIDITY_VERSION ?? settings.defaultSolidityVersion)
-      : '^0.8.24',
-    INCLUDE_PAUSABLE: settings.includePausable ? 'true' : 'false',
-    INCLUDE_ACCESS_CONTROL: settings.includeAccessControl ? 'true' : 'false',
-    INCLUDE_NATSPEC: settings.includeNatSpec ? 'true' : 'false',
-  };
-  const contents = replacePlaceholders(tpl, withConfig);
-  await writeTextFile(outputFileName, contents, 'contracts');
-  vscode.window.showInformationMessage(`RetroC: Created contract ${outputFileName}`);
+  try {
+    const settings = getDefaultSettings();
+    const tpl = await readTemplate(templateId);
+    const withConfig = {
+      ...placeholders,
+      LICENSE: placeholders.LICENSE ?? settings.defaultLicense,
+      SOLIDITY_VERSION: settings.allowVersionOverride
+        ? (placeholders.SOLIDITY_VERSION ?? settings.defaultSolidityVersion)
+        : '^0.8.24',
+      INCLUDE_PAUSABLE: settings.includePausable ? 'true' : 'false',
+      INCLUDE_ACCESS_CONTROL: settings.includeAccessControl ? 'true' : 'false',
+      INCLUDE_REENTRANCY_GUARD: settings.includeReentrancyGuard ? 'true' : 'false',
+      INCLUDE_NATSPEC: settings.includeNatSpec ? 'true' : 'false',
+    };
+    const contents = replacePlaceholders(tpl, withConfig);
+    await writeTextFile(outputFileName, contents, 'contracts');
+    vscode.window.showInformationMessage(`RetroC: Created contract ${outputFileName}`);
 
-  // Auto hooks
-  if (settings.autoGenerateTests) {
-    const baseName = outputFileName.replace(/\.sol$/i, '');
-    await generateBasicHardhatTest(baseName, settings.useTypeScript);
-  }
-  if (settings.deploymentScripts) {
-    const baseName = outputFileName.replace(/\.sol$/i, '');
-    await generateDeploymentScript(baseName);
+    // Auto hooks
+    if (settings.autoGenerateTests) {
+      try {
+        const baseName = outputFileName.replace(/\.sol$/i, '');
+        await generateBasicHardhatTest(baseName, settings.useTypeScript);
+      } catch (err) {
+        vscode.window.showWarningMessage(`RetroC: Failed to auto-generate test file: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
+    }
+    if (settings.deploymentScripts) {
+      try {
+        const baseName = outputFileName.replace(/\.sol$/i, '');
+        await generateDeploymentScript(baseName);
+      } catch (err) {
+        vscode.window.showWarningMessage(`RetroC: Failed to auto-generate deployment script: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to generate contract';
+    throw new Error(`Contract generation failed: ${message}`);
   }
 }
 
