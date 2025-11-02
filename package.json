@@ -1,8 +1,8 @@
 {
-  "name": "retroc",
+  "name": "@VishalNandy17/retroc",
   "displayName": "RetroC - Solidity Smart Contract Generator",
   "description": "BE SMARTER, CODE FASTER",
-  "version": "1.0.5",
+  "version": "1.1.1",
   "publisher": "VishalNandy17",
   "engines": {
     "vscode": "^1.60.0"
@@ -298,10 +298,15 @@
     "build": "webpack --mode production",
     "package": "npx @vscode/vsce package",
     "publish": "npx @vscode/vsce publish",
+    "publish:github": "npm publish",
     "lint": "eslint --ext .ts src",
     "format": "prettier --write .",
     "test": "node ./out/test/runTests.js",
     "pretest": "tsc -p . && node ./scripts/copy-tests.js"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "@VishalNandy17:registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
@@ -313,22 +318,25 @@
   "homepage": "https://github.com/VishalNandy17/RetroC#readme",
   "packageManager": "npm@10",
   "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^20.11.30",
     "@types/vscode": "^1.60.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "@vscode/test-electron": "^2.4.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "mocha": "^10.2.0",
     "prettier": "^3.2.5",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.5",
-    "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4",
     "vsce": "^2.15.0",
-    "@vscode/test-electron": "^2.4.0",
-    "mocha": "^10.2.0",
-    "@types/mocha": "^10.0.6",
-    "@types/glob": "^8.1.0"
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@VishalNandy17/retroc": "^1.1.0"
   }
 }

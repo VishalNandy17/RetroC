@@ -8,7 +8,7 @@
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=32&duration=2800&pause=2000&color=6366F1&center=true&vCenter=true&width=600&lines=Lightning-Fast+Templates;Smart+Contract+Generation;Production-Ready+Code;Web3+Development+Tool" alt="Typing SVG" />
 
-[![Version](https://img.shields.io/badge/version-1.0.5-6366f1.svg?style=for-the-badge)](https://github.com/VishalNandy17/RetroC/releases)
+[![Version](https://img.shields.io/badge/version-1.1.1-6366f1.svg?style=for-the-badge)](https://github.com/VishalNandy17/RetroC/releases)
 [![License](https://img.shields.io/badge/license-MIT-10b981.svg?style=for-the-badge)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.60+-8b5cf6.svg?style=for-the-badge&logo=visual-studio-code)](https://code.visualstudio.com/)
 [![Solidity](https://img.shields.io/badge/Solidity-0.8+-f97316.svg?style=for-the-badge&logo=solidity)](https://soliditylang.org/)
