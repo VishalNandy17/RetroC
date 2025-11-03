@@ -21,10 +21,18 @@ export async function scanWorkspaceSecurity(): Promise<number> {
 		for (const rule of ALL_RULES) {
 			const issues: SecurityIssue[] = rule(ctx);
 			total += issues.length;
-			for (const issue of issues) {
+      for (const issue of issues) {
 				const d = new vscode.Diagnostic(issue.range, `[${issue.ruleId}] ${issue.message}`, issue.severity);
 				d.source = 'RetroC Security';
-				(d as any).__retrocFix = issue.fix;
+        if (issue.fix) {
+          switch (issue.fix.kind) {
+            case 'txorigin.replace': d.code = 'retroc:txorigin'; break;
+            case 'selfdestruct.block': d.code = 'retroc:selfdestruct'; break;
+            case 'delegatecall.block': d.code = 'retroc:delegatecall'; break;
+            case 'unchecked.call.check': d.code = 'retroc:unchecked-call'; break;
+            case 'reentrancy.guard': d.code = 'retroc:reentrancy'; break;
+          }
+        }
 				diags.push(d);
 			}
 		}

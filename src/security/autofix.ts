@@ -60,4 +60,43 @@ export async function applyReentrancyFixForCurrentFile(): Promise<void> {
 	vscode.window.showInformationMessage(`RetroC: Applied reentrancy fixes (${res.count} function(s) updated${added ? ', import added' : ''}).`);
 }
 
+export async function applyTxOriginFixCurrent(): Promise<void> {
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) { vscode.window.showWarningMessage('RetroC: No active editor to fix.'); return; }
+	const doc = editor.document;
+	if (!doc.fileName.endsWith('.sol')) { vscode.window.showWarningMessage('RetroC: Open a Solidity (.sol) file to apply fixes.'); return; }
+	const original = doc.getText();
+	if (!/\btx\.origin\b/.test(original)) { vscode.window.showInformationMessage('RetroC: No tx.origin usages found.'); return; }
+	const updated = original.replace(/\btx\.origin\b/g, 'msg.sender');
+	const fullRange = new vscode.Range(doc.positionAt(0), doc.positionAt(original.length));
+	await editor.edit((eb) => eb.replace(fullRange, updated));
+	vscode.window.showInformationMessage('RetroC: Replaced tx.origin with msg.sender. Review access control logic.');
+}
+
+export async function applyDelegatecallFixCurrent(): Promise<void> {
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) { vscode.window.showWarningMessage('RetroC: No active editor to fix.'); return; }
+	const doc = editor.document;
+	if (!doc.fileName.endsWith('.sol')) { vscode.window.showWarningMessage('RetroC: Open a Solidity (.sol) file to apply fixes.'); return; }
+	const original = doc.getText();
+	if (!/\.\s*delegatecall\s*\(/.test(original)) { vscode.window.showInformationMessage('RetroC: No delegatecall usages found.'); return; }
+	const updated = original.replace(/(\.\s*delegatecall\s*\([^)]*\))/g, '/* $1 // BLOCKED BY RETROC: review proxy design */');
+	const fullRange = new vscode.Range(doc.positionAt(0), doc.positionAt(original.length));
+	await editor.edit((eb) => eb.replace(fullRange, updated));
+	vscode.window.showInformationMessage('RetroC: Commented out delegatecall occurrences.');
+}
+
+export async function applySelfdestructFixCurrent(): Promise<void> {
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) { vscode.window.showWarningMessage('RetroC: No active editor to fix.'); return; }
+	const doc = editor.document;
+	if (!doc.fileName.endsWith('.sol')) { vscode.window.showWarningMessage('RetroC: Open a Solidity (.sol) file to apply fixes.'); return; }
+	const original = doc.getText();
+	if (!/\bselfdestruct\s*\(/.test(original)) { vscode.window.showInformationMessage('RetroC: No selfdestruct usages found.'); return; }
+	const updated = original.replace(/\bselfdestruct\s*\([^)]*\)\s*;/g, '/* selfdestruct(...) blocked by RetroC. Replace with controlled upgrade path. */');
+	const fullRange = new vscode.Range(doc.positionAt(0), doc.positionAt(original.length));
+	await editor.edit((eb) => eb.replace(fullRange, updated));
+	vscode.window.showInformationMessage('RetroC: Commented out selfdestruct occurrences.');
+}
+
 

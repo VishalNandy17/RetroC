@@ -12,9 +12,13 @@ import { generateReadmeForCurrent } from './generateReadme';
 import { generateAllReadmes } from './generateAllReadmes';
 import { insertHeader } from './insertHeader';
 import { previewTemplate } from './previewTemplate';
-import { scanSecurityWorkspace, scanSecurityCurrent, fixReentrancyCurrent, fixLowLevelCallCurrent, securityReportWorkspace, securityReportCurrent } from './scanSecurity';
+import { scanSecurityWorkspace, scanSecurityCurrent, fixReentrancyCurrent, fixLowLevelCallCurrent, securityReportWorkspace, securityReportCurrent, fixTxOriginCurrent, fixDelegatecallCurrent, fixSelfdestructCurrent } from './scanSecurity';
+import { runSlitherWorkspace } from './runSlither';
+import { registerSecurityCodeActions } from '../providers/securityCodeActions';
 
 export function registerCommands(context: vscode.ExtensionContext) {
+  // Register CodeActions provider for security quick fixes
+  registerSecurityCodeActions(context);
   const disposables: vscode.Disposable[] = [
     vscode.commands.registerCommand('retroc.generateERC20', generateERC20),
     vscode.commands.registerCommand('retroc.generateERC721', generateERC721),
@@ -37,8 +41,12 @@ export function registerCommands(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('retroc.scanSecurityCurrent', scanSecurityCurrent),
     vscode.commands.registerCommand('retroc.fixReentrancyCurrent', fixReentrancyCurrent),
     vscode.commands.registerCommand('retroc.fixLowLevelCallCurrent', fixLowLevelCallCurrent),
+    vscode.commands.registerCommand('retroc.fixTxOriginCurrent', fixTxOriginCurrent),
+    vscode.commands.registerCommand('retroc.fixDelegatecallCurrent', fixDelegatecallCurrent),
+    vscode.commands.registerCommand('retroc.fixSelfdestructCurrent', fixSelfdestructCurrent),
     vscode.commands.registerCommand('retroc.securityReportWorkspace', securityReportWorkspace),
     vscode.commands.registerCommand('retroc.securityReportCurrent', securityReportCurrent),
+    vscode.commands.registerCommand('retroc.runSlitherWorkspace', runSlitherWorkspace),
   ];
 
   context.subscriptions.push(...disposables);

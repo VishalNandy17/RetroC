@@ -50,7 +50,9 @@
     "onCommand:retroc.fixReentrancyCurrent",
     "onCommand:retroc.fixLowLevelCallCurrent",
     "onCommand:retroc.securityReportWorkspace",
-    "onCommand:retroc.securityReportCurrent"
+    "onCommand:retroc.securityReportCurrent",
+    "onCommand:retroc.runSlitherWorkspace",
+    "onLanguage:solidity"
   ],
   "main": "dist/extension.js",
   "contributes": {
@@ -137,7 +139,11 @@
       { "command": "retroc.fixReentrancyCurrent", "title": "RetroC: Apply Reentrancy Fix (Current File)", "category": "RetroC" },
       { "command": "retroc.fixLowLevelCallCurrent", "title": "RetroC: Apply Safe Low-Level Call Fix (Current File)", "category": "RetroC" },
       { "command": "retroc.securityReportWorkspace", "title": "RetroC: Security Report (Workspace)", "category": "RetroC" },
-      { "command": "retroc.securityReportCurrent", "title": "RetroC: Security Report (Current File)", "category": "RetroC" }
+      { "command": "retroc.securityReportCurrent", "title": "RetroC: Security Report (Current File)", "category": "RetroC" },
+      { "command": "retroc.runSlitherWorkspace", "title": "RetroC: Run Slither (Workspace)", "category": "RetroC" },
+      { "command": "retroc.fixTxOriginCurrent", "title": "RetroC: Fix tx.origin (Current File)", "category": "RetroC" },
+      { "command": "retroc.fixDelegatecallCurrent", "title": "RetroC: Fix delegatecall (Current File)", "category": "RetroC" },
+      { "command": "retroc.fixSelfdestructCurrent", "title": "RetroC: Fix selfdestruct (Current File)", "category": "RetroC" }
     ],
     "keybindings": [
       {

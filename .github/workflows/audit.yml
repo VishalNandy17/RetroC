@@ -1,0 +1,72 @@
+name: retroc-audit
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Run tests
+        run: npm test || true
+
+      - name: Install Slither
+        run: |
+          sudo add-apt-repository ppa:ethereum/ethereum -y || true
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+          pip3 install slither-analyzer crytic-compile
+
+      - name: Run Slither
+        id: slither
+        run: |
+          set -e
+          mkdir -p reports
+          slither . --json reports/slither.json || true
+          echo "json=$(cat reports/slither.json | tr '\n' ' ' | sed 's/\r//g')" >> $GITHUB_OUTPUT
+
+      - name: Compute score
+        id: score
+        run: |
+          set -e
+          count=$(jq '.results.detectors | length' reports/slither.json 2>/dev/null || echo 0)
+          if [ "$count" = "" ]; then count=0; fi
+          # Simple score: 100 - min(findings*10, 90)
+          score=$((100 - (count*10)))
+          if [ $score -lt 10 ]; then score=10; fi
+          echo "score=$score" >> $GITHUB_OUTPUT
+          echo "findings=$count" >> $GITHUB_OUTPUT
+
+      - name: Fail if below threshold
+        env:
+          THRESHOLD: ${{ vars.RETROC_AUDIT_THRESHOLD || 80 }}
+        run: |
+          echo "Score: ${{ steps.score.outputs.score }}; Findings: ${{ steps.score.outputs.findings }}; Threshold: $THRESHOLD"
+          if [ ${{ steps.score.outputs.score }} -lt $THRESHOLD ]; then
+            echo "Security score below threshold" && exit 1
+          fi
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: slither-report
+          path: reports/slither.json
+
+
