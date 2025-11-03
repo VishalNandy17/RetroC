@@ -44,7 +44,13 @@
     "onCommand:retroc.generateVesting",
     "onCommand:retroc.generateTests",
     "onCommand:retroc.generateAllTests",
-    "onCommand:retroc.openSettings"
+    "onCommand:retroc.openSettings",
+    "onCommand:retroc.scanSecurityWorkspace",
+    "onCommand:retroc.scanSecurityCurrent",
+    "onCommand:retroc.fixReentrancyCurrent",
+    "onCommand:retroc.fixLowLevelCallCurrent",
+    "onCommand:retroc.securityReportWorkspace",
+    "onCommand:retroc.securityReportCurrent"
   ],
   "main": "dist/extension.js",
   "contributes": {
@@ -104,6 +110,34 @@
         "title": "RetroC: Open Settings",
         "category": "RetroC"
       }
+      ,
+      {
+        "command": "retroc.generateReadme",
+        "title": "RetroC: Generate README for Current Contract",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.generateAllReadmes",
+        "title": "RetroC: Generate READMEs for All Contracts",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.insertHeader",
+        "title": "RetroC: Insert SPDX + Pragma Header",
+        "category": "RetroC"
+      },
+      {
+        "command": "retroc.previewTemplate",
+        "title": "RetroC: Preview Template (Resolved)",
+        "category": "RetroC"
+      }
+      ,
+      { "command": "retroc.scanSecurityWorkspace", "title": "RetroC: Security Scan (Workspace)", "category": "RetroC" },
+      { "command": "retroc.scanSecurityCurrent", "title": "RetroC: Security Scan (Current File)", "category": "RetroC" },
+      { "command": "retroc.fixReentrancyCurrent", "title": "RetroC: Apply Reentrancy Fix (Current File)", "category": "RetroC" },
+      { "command": "retroc.fixLowLevelCallCurrent", "title": "RetroC: Apply Safe Low-Level Call Fix (Current File)", "category": "RetroC" },
+      { "command": "retroc.securityReportWorkspace", "title": "RetroC: Security Report (Workspace)", "category": "RetroC" },
+      { "command": "retroc.securityReportCurrent", "title": "RetroC: Security Report (Current File)", "category": "RetroC" }
     ],
     "keybindings": [
       {
@@ -171,7 +205,31 @@
         "key": "ctrl+alt+r c",
         "mac": "cmd+alt+r c",
         "when": "editorTextFocus"
-      }
+      },
+      {
+        "command": "retroc.generateReadme",
+        "key": "ctrl+alt+r r",
+        "mac": "cmd+alt+r r",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.insertHeader",
+        "key": "ctrl+alt+r h",
+        "mac": "cmd+alt+r h",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "retroc.previewTemplate",
+        "key": "ctrl+alt+r p",
+        "mac": "cmd+alt+r p",
+        "when": "editorTextFocus"
+      },
+      { "command": "retroc.scanSecurityWorkspace", "key": "ctrl+alt+r x", "when": "editorTextFocus" },
+      { "command": "retroc.scanSecurityCurrent", "key": "ctrl+alt+r y", "when": "editorTextFocus" },
+      { "command": "retroc.fixReentrancyCurrent", "key": "ctrl+alt+r f", "when": "editorTextFocus" },
+      { "command": "retroc.fixLowLevelCallCurrent", "key": "ctrl+alt+r l", "when": "editorTextFocus" },
+      { "command": "retroc.securityReportWorkspace", "key": "ctrl+alt+r g", "when": "editorTextFocus" },
+      { "command": "retroc.securityReportCurrent", "key": "ctrl+alt+r j", "when": "editorTextFocus" }
     ],
     "configuration": {
       "title": "RetroC",
@@ -288,6 +346,11 @@
           "type": "boolean",
           "default": true,
           "description": "Generate contract README"
+        },
+        "retroc.auditMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable audit mode to prefer external audits and avoid risky auto-fixes in CI"
         }
       }
     }

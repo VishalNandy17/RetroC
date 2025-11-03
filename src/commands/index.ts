@@ -8,6 +8,11 @@ import { generateStaking } from './generateStaking';
 import { generateVesting } from './generateVesting';
 import { generateTests, generateAllTests } from './generateTests';
 import { generateDeployment } from './generateDeployment';
+import { generateReadmeForCurrent } from './generateReadme';
+import { generateAllReadmes } from './generateAllReadmes';
+import { insertHeader } from './insertHeader';
+import { previewTemplate } from './previewTemplate';
+import { scanSecurityWorkspace, scanSecurityCurrent, fixReentrancyCurrent, fixLowLevelCallCurrent, securityReportWorkspace, securityReportCurrent } from './scanSecurity';
 
 export function registerCommands(context: vscode.ExtensionContext) {
   const disposables: vscode.Disposable[] = [
@@ -24,6 +29,16 @@ export function registerCommands(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('retroc.openSettings', () =>
       vscode.commands.executeCommand('workbench.action.openSettings', '@ext:retroc'),
     ),
+    vscode.commands.registerCommand('retroc.generateReadme', generateReadmeForCurrent),
+    vscode.commands.registerCommand('retroc.generateAllReadmes', generateAllReadmes),
+    vscode.commands.registerCommand('retroc.insertHeader', insertHeader),
+    vscode.commands.registerCommand('retroc.previewTemplate', previewTemplate),
+    vscode.commands.registerCommand('retroc.scanSecurityWorkspace', scanSecurityWorkspace),
+    vscode.commands.registerCommand('retroc.scanSecurityCurrent', scanSecurityCurrent),
+    vscode.commands.registerCommand('retroc.fixReentrancyCurrent', fixReentrancyCurrent),
+    vscode.commands.registerCommand('retroc.fixLowLevelCallCurrent', fixLowLevelCallCurrent),
+    vscode.commands.registerCommand('retroc.securityReportWorkspace', securityReportWorkspace),
+    vscode.commands.registerCommand('retroc.securityReportCurrent', securityReportCurrent),
   ];
 
   context.subscriptions.push(...disposables);
