@@ -1,7 +1,7 @@
 {
   "name": "retroc",
   "displayName": "RetroC - Solidity Smart Contract Generator",
-  "description": "BE SMARTER, CODE FASTER - A powerful Solidity smart contract generator with security scanning features",
+  "description": "Professional Solidity smart contract generator with templates for ERC20, ERC721, ERC1155, DAO, Multisig, Staking, and Vesting contracts. Includes security scanning and automated fixes.",
   "version": "1.1.1",
   "publisher": "VishalNandy17",
   "license": "MIT",
@@ -9,7 +9,10 @@
     "vscode": "^1.60.0"
   },
   "categories": [
+    "Programming Languages",
     "Snippets",
+    "Testing",
+    "Formatters",
     "Other"
   ],
   "keywords": [
@@ -381,11 +384,8 @@
     "url": "https://github.com/VishalNandy17/RetroC/issues"
   },
   "homepage": "https://github.com/VishalNandy17/RetroC#readme",
-  "author": {
-    "name": "VishalNandy17"
-  },
-  "qna": "marketplace",
   "packageManager": "npm@10",
+  "private": true,
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.6",

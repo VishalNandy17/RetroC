@@ -1,12 +1,12 @@
-# Node
-node_modules/
+# Development & tooling
+node_modules/**
+.git/**
+.github/**
+.vscode/**
+*.map
+*.yml
+*.ps1
 .npm/
-
-# Build outputs
-out/
-*.vsix
-
-# VS Code test runner cache
 .vscode-test/
 .test-workspace/
 
@@ -18,29 +18,36 @@ Thumbs.db
 *.swo
 *~
 
-# Source files (only dist should be included)
-# Exclude src files except logo
+# Docs & guides
+WHAT_IS_RETROC.txt
+QUICK_PUBLISH.md
+PUBLISH_GUIDE.md
+GITHUB_PUBLISH.md
+CHANGELOG.md
+README.md
+
+# Extra packages and artifacts
+clean_package/**
+contracts/**
+dist/**/*.map
+out/
+*.vsix
+npm/
+
+# Source files
 src/**/*
 !src/logo/
 !src/logo/**
+
+# Tests and configs
+test/**
+scripts/**
+src/test/
 tsconfig.json
 webpack.config.js
 .eslintrc.json
 .prettierrc
-scripts/
-
-# Development files
-*.vsix
-npm/
-
-# Git
-.git/
 .gitignore
 
-# Documentation (README will be included automatically)
-# README.md is included by default for marketplace
-
-# Tests (only needed for development)
-src/test/
-test/
-
+# Explicitly include LICENSE
+!LICENSE
